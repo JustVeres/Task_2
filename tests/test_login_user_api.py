@@ -1,8 +1,10 @@
 import allure
 import pytest
 from api_methods import UserApiMethods
-from helpers import generate_registration_payload
+from helpers import generate_payload
+from data.data_response import ErrorResponse as ER
 
+"""Создание пользователя"""
 
 @allure.title("Логин под существующим пользователем")
 def test_login_existing_user(registered_user):
@@ -24,7 +26,7 @@ def test_login_existing_user(registered_user):
 @pytest.mark.parametrize("field", ["email", "password"])
 def test_login_with_wrong_credentials(field):
     with allure.step("Создать нового пользователя"):
-        payload = generate_registration_payload()
+        payload = generate_payload()
         UserApiMethods.create_user_with_payload(payload)
 
     with allure.step(f"Сломать поле {field}"):
@@ -37,4 +39,4 @@ def test_login_with_wrong_credentials(field):
     with allure.step("Проверить ошибку авторизации"):
         assert status == 401
         assert body["success"] is False
-        assert body["message"] == "email or password are incorrect"
+        assert body["message"] == ER.INCORRECT_FIELDS_RESPONSE

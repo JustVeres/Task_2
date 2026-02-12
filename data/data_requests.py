@@ -11,6 +11,13 @@ class Payloads:
     @staticmethod
     def request_login_payload():
         return {
-                "email": "",
-                "password": ""
+            "email": "",
+            "password": ""
+        }
+
+    @staticmethod
+    def changing_user_data_payload():
+        return {
+            "email": "",
+            "name": ""
         }

@@ -1,12 +1,11 @@
-class Urls:
-    BASE_URL = "https://stellarburgers.education-services.ru/"
+BASE_URL = "https://stellarburgers.education-services.ru/"
 
 class ApiEndpoints:
-    CREATE_USER_ENDPOINT = "api/auth/register" # Создание/регистрация пользователя
-    DELETE_USER_ENDPOINT = "api/auth/user" # Удаление пользователя
-    LOGIN_ENDPOINT = "api/auth/login" # Авторизация пользователя
+    AUTH_REGISTER_ENDPOINT = "api/auth/register" # Создание/регистрация пользователя
+    AUTH_USER_ENDPOINT = "api/auth/user" # Удаление пользователя
+    AUTH_LOGIN_ENDPOINT = "api/auth/login" # Авторизация пользователя
 
-class TotalUrl:
-    TOTAL_CREATE_USER_URL = Urls.BASE_URL + ApiEndpoints.CREATE_USER_ENDPOINT # Создаем юзера
-    TOTAL_DELETE_USER_URL = Urls.BASE_URL + ApiEndpoints.DELETE_USER_ENDPOINT # Удаляем юзера
-    TOTAL_LOGIN_URL = Urls.BASE_URL + ApiEndpoints.LOGIN_ENDPOINT # Проходим авторизацию
+class Urls:
+    AUTH_REGISTER_URL = BASE_URL + ApiEndpoints.AUTH_REGISTER_ENDPOINT # api/auth/register
+    AUTH_USER_URL = BASE_URL + ApiEndpoints.AUTH_USER_ENDPOINT # api/auth/user
+    AUTH_LOGIN_URL = BASE_URL + ApiEndpoints.AUTH_LOGIN_ENDPOINT # api/auth/login
