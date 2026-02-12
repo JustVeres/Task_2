@@ -1,9 +1,7 @@
 import allure
 import pytest
-from helpers import generate_payload
 from api_methods import UserApiMethods
 from data.data_response import ErrorResponse as ER
-from data.data_requests import Payloads
 
 """Логин пользователя"""
 
@@ -38,14 +36,13 @@ def test_create_existing_user(registered_user):
 
 @allure.title("Нельзя создать пользователя без обязательных полей")
 @pytest.mark.parametrize("field", ["email", "password", "name"])
-def test_create_user_without_required_field(field):
-    payload = generate_payload()
+def test_create_user_without_required_field(field, random_payload):
 
     with allure.step(f"Очистить обязательное поле: {field}"):
-        payload[field] = ""
+        random_payload[field] = ""
 
     with allure.step("Отправить запрос на создание пользователя"):
-        status, body = UserApiMethods.create_user_with_payload(payload)
+        status, body = UserApiMethods.create_user_with_payload(random_payload)
 
     with allure.step("Проверить статус ошибки"):
         assert status == 403
@@ -56,10 +53,9 @@ def test_create_user_without_required_field(field):
 
 
 @allure.title("Нельзя создать пользователя с пустыми полями")
-def test_create_user_with_empty_body():
-    payload = Payloads.request_create_user_payload()
+def test_create_user_with_empty_body(create_user_payload):
     with allure.step("Отправить запрос на создание пользователя"):
-        status, body = UserApiMethods.create_user_with_payload(payload)
+        status, body = UserApiMethods.create_user_with_payload(create_user_payload)
 
     with allure.step("Проверить ошибку валидации"):
         assert status == 403
@@ -68,13 +64,11 @@ def test_create_user_with_empty_body():
 
 @allure.title("Нельзя создать пользователя без обязательного ключа")
 @pytest.mark.parametrize("field", ["email", "password", "name"])
-def test_create_user_without_field_key(field):
-    payload = generate_payload()
-
+def test_create_user_without_field_key(field, random_payload):
     with allure.step(f"Удалить обязательный ключ: {field}"):
-            payload.pop(field)
+        random_payload.pop(field)
     with allure.step("Отправить запрос на создание пользователя"):
-        status, body = UserApiMethods.create_user_with_payload(payload)
+        status, body = UserApiMethods.create_user_with_payload(random_payload)
     with allure.step("Проверить статус и сообщение ошибки"):
         assert status == 403
         assert body["message"] == ER.REQUIRED_FIELDS_USER_RESPONSE

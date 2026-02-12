@@ -21,3 +21,9 @@ class Payloads:
             "email": "",
             "name": ""
         }
+
+    @staticmethod
+    def create_order_payload():
+        return {
+            "ingredients": []
+        }

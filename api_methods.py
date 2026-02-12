@@ -52,9 +52,20 @@ class UserApiMethods:
         )
         return response.status_code, response.json(), payload
 
+    @staticmethod
+    @allure.step("Создать заказ")
+    def create_order(payload: dict, access_token: str = None):
+        headers = {}
+        if access_token:
+            headers["Authorization"] = access_token
+        response = requests.post(
+            Urls.ORDERS_URL,
+            headers=headers,
+            json=payload
+        )
 
-
-status, body = UserApiMethods.create_user_response()
-print(status, body)
-token = body["accessToken"]
-print(UserApiMethods.delete_user_response(token))
+        try:
+            body = response.json()
+        except ValueError:
+            body = response.text
+        return response.status_code, body
