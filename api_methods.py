@@ -69,3 +69,23 @@ class UserApiMethods:
         except ValueError:
             body = response.text
         return response.status_code, body
+
+    @staticmethod
+    @allure.step("Получить заказы пользователя")
+    def get_user_orders(access_token: str = None):
+        headers = {}
+
+        if access_token:
+            headers["Authorization"] = access_token
+
+        response = requests.get(
+            Urls.ORDERS_URL,
+            headers=headers
+        )
+
+        try:
+            body = response.json()
+        except ValueError:
+            body = response.text
+
+        return response.status_code, body

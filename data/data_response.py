@@ -1,5 +1,6 @@
-class ErrorResponse:
-    REQUIRED_FIELDS_USER_RESPONSE = "Email, password and name are required fields" # 403
-    USER_ALREADY_EXISTS_RESPONSE = "User already exists" # 403
-    INCORRECT_FIELDS_RESPONSE = "email or password are incorrect"
-    SHOULD_BE_AUTHORISED_RESPONSE = "You should be authorised"
+class ErrorMessage:
+    REQUIRED_FIELDS_USER_MESSAGE = "Email, password and name are required fields"
+    USER_ALREADY_EXISTS_MESSAGE = "User already exists"
+    INCORRECT_FIELDS_MESSAGE = "email or password are incorrect"
+    SHOULD_BE_AUTHORISED_MESSAGE = "You should be authorised"
+    INGREDIENT_PROVIDED_MESSAGE = "Ingredient ids must be provided"

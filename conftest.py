@@ -5,14 +5,14 @@ from api_methods import UserApiMethods
 from data.data_urls import Urls
 from data.data_requests import Payloads
 
-@pytest.fixture # Фикстура для создания и удаления нового юзера
+@pytest.fixture
 def new_user_register():
     status, body = UserApiMethods.create_user_response()
     token = body["accessToken"]
     yield status, body, token
     UserApiMethods.delete_user_response(token)
 
-@pytest.fixture # Фикстура для создания и удаления существующего юзера
+@pytest.fixture
 def registered_user():
     payload = generate_payload()
     _, body = UserApiMethods.create_user_with_payload(payload)

@@ -1,9 +1,9 @@
 import allure
 import pytest
 from api_methods import UserApiMethods
-from data.data_response import ErrorResponse as ER
+from data.data_response import ErrorMessage as EM
 
-"""Логин пользователя"""
+"""Создание пользователя"""
 
 @allure.title("Успешное создание пользователя")
 def test_create_user(new_user_register):
@@ -31,7 +31,7 @@ def test_create_existing_user(registered_user):
         assert status == 403
 
     with allure.step("Проверить сообщение об ошибке"):
-        assert body["message"] == ER.USER_ALREADY_EXISTS_RESPONSE
+        assert body["message"] == EM.USER_ALREADY_EXISTS_MESSAGE
 
 
 @allure.title("Нельзя создать пользователя без обязательных полей")
@@ -49,7 +49,7 @@ def test_create_user_without_required_field(field, random_payload):
 
     with allure.step("Проверить текст ошибки"):
         assert body["success"] is False
-        assert body["message"] == ER.REQUIRED_FIELDS_USER_RESPONSE
+        assert body["message"] == EM.REQUIRED_FIELDS_USER_MESSAGE
 
 
 @allure.title("Нельзя создать пользователя с пустыми полями")
@@ -59,7 +59,7 @@ def test_create_user_with_empty_body(create_user_payload):
 
     with allure.step("Проверить ошибку валидации"):
         assert status == 403
-        assert body["message"] == ER.REQUIRED_FIELDS_USER_RESPONSE
+        assert body["message"] == EM.REQUIRED_FIELDS_USER_MESSAGE
 
 
 @allure.title("Нельзя создать пользователя без обязательного ключа")
@@ -71,4 +71,4 @@ def test_create_user_without_field_key(field, random_payload):
         status, body = UserApiMethods.create_user_with_payload(random_payload)
     with allure.step("Проверить статус и сообщение ошибки"):
         assert status == 403
-        assert body["message"] == ER.REQUIRED_FIELDS_USER_RESPONSE
+        assert body["message"] == EM.REQUIRED_FIELDS_USER_MESSAGE

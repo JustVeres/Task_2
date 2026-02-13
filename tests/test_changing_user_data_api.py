@@ -1,6 +1,6 @@
 import allure
 from api_methods import UserApiMethods
-from data.data_response import ErrorResponse as ER
+from data.data_response import ErrorMessage as EM
 
 """Изменение данных пользователя"""
 
@@ -30,4 +30,4 @@ def test_change_user_data_without_auth():
 
     with allure.step("Проверить сообщение об ошибке"):
         assert body["success"] is False
-        assert body["message"] == ER.SHOULD_BE_AUTHORISED_RESPONSE
+        assert body["message"] == EM.SHOULD_BE_AUTHORISED_MESSAGE

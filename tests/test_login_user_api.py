@@ -1,9 +1,9 @@
 import allure
 import pytest
 from api_methods import UserApiMethods
-from data.data_response import ErrorResponse as ER
+from data.data_response import ErrorMessage as EM
 
-"""Создание пользователя"""
+"""Логин пользователя"""
 
 @allure.title("Логин под существующим пользователем")
 def test_login_existing_user(registered_user):
@@ -37,4 +37,4 @@ def test_login_with_wrong_credentials(field, random_payload):
     with allure.step("Проверить ошибку авторизации"):
         assert status == 401
         assert body["success"] is False
-        assert body["message"] == ER.INCORRECT_FIELDS_RESPONSE
+        assert body["message"] == EM.INCORRECT_FIELDS_MESSAGE
